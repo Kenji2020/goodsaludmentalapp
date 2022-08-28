@@ -23,7 +23,7 @@ const Articulos = ({ info }) => {
 
     },[])
     React.useEffect(()=>{
-        db.collection('correosPsicolgos').onSnapshot(querySnapshot=>{
+        db.collection('correosPsicologos').onSnapshot(querySnapshot=>{
             const docs = [];
             querySnapshot.forEach(doc=>{
                 docs.push({
@@ -33,6 +33,7 @@ const Articulos = ({ info }) => {
                 })
             })
             setArticulos([...docs]);
+            console.log(docs)
         })
 
     },[])

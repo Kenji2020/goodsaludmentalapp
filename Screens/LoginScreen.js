@@ -50,9 +50,10 @@ export default function LoginScreen() {
             </View>
             <View style={{backgroundColor:'#eeeeee'}}>
             <Button
-                buttonStyle={{ width: '100%',
+                buttonStyle={{marginLeft:'25%',marginRight:'50%',
                     backgroundColor: '#00a680',
                     borderRadius: 10,
+                    height:75, width:200
                 }}
                 onPress={handleLogin}
                 title="Iniciar sesión"
