@@ -91,8 +91,9 @@ const CrearBlogScreen = (props) => {
                         style={styles.loginFormTextInput}/>
                     <TextInput
                         onChangeText={(value) => handleChangeText(value, "nickname")}
-                        placeholder="Nickname"
+                        placeholder="Nombre de usuario, los moderadores pueden ver quien escribe"
                         placeholderColor="#c4c3cb"
+                        multiline={true}
                         style={styles.loginFormTextInput}/>
                     <TextInput
                         onChangeText={(value) => handleChangeText(value, "description")}

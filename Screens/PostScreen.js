@@ -140,11 +140,7 @@ const BlogPage = (props) => {
                             borderBottomLeftRadius: 10,
                             borderBottomRightRadius: 10
                         }} resizeMode="cover"/>
-                        <Button
-                            title='Back'
-                            containerStyle={{marginRight:300}}
-                            onPress={()=>navigation.navigate('Home')}
-                        />
+                       
                         {auth.currentUser.email === user.autor || auth.currentUser.email === "victor.ignacio.salgado2002@gmail.com" || auth.currentUser.email === "joakomask@gmail.com"  ?
                         <>
                             <Button
@@ -154,7 +150,6 @@ const BlogPage = (props) => {
                                     backgroundColor: '#F44336',
                                     borderRadius: 10,
                                     marginTop: 14
-
                                 }}
                             />
                         </>
@@ -217,6 +212,7 @@ const BlogPage = (props) => {
                                         }} onPress={() => AddToComments()} />
 
                                         {function () {
+                                            if (Comments){
                                             if (Comments.length > 0) {
                                                 return Comments.map((comment, index) => {
                                                     return (
@@ -253,7 +249,7 @@ const BlogPage = (props) => {
                                                     </View>
                                                 )
                                             }
-                                        }()}
+                                        }}()}
                                     </View>
                                 </View>
                             </View>

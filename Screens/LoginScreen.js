@@ -71,5 +71,6 @@ logoText: {
         marginTop: 150,
         marginBottom: 30,
         textAlign: "center",
+        fontFamily: "Noteworthy-Bold"
     },
 });

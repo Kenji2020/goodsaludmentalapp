@@ -10,7 +10,7 @@ export default function RegisterScreen() {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const navigation = useNavigation()
-    //CREAR CONFIRMACIÓN PARA VER QUE LAS 2 CONTRASEÑAS SEAN IGUALES BENJA
+    //CREAR CONFIRMACIÓN PARA VER QUE LAS 2 CONTRASEÑAS SEAN IGUALES
     /*-----------------------------------------------------------------*/
     //Confirmar que existe la sesión en la base de datos
     const handleSignUp = () => {
@@ -19,7 +19,7 @@ export default function RegisterScreen() {
             .then(userCredentials => {
                 const user = userCredentials.user;
             })
-            .catch(error => alert(error.message))
+            .catch(error => alert('Error al registrarse, inténtelo nuevamente'))
     }
     //Se verifica si es que el usuario está logueado
     useEffect(() => {
@@ -53,19 +53,20 @@ export default function RegisterScreen() {
                 value={passwordConfirm}
                 onChangeText={(passwordConfirm) => setPasswordConfirm(passwordConfirm)}
                 leftIcon={<Icon name="lock" size={20} />}
-                placeholder="Confirma contraseña"
+                placeholder="Confirmar contraseña"
                 secureTextEntry={true}
             />
             <View>
                 <Button
-                    buttonStyle={{ width: '100%',
-                        backgroundColor: '#00a680',
-                        borderRadius: 10,
-                    }}
+                    buttonStyle={{marginLeft:'25%',marginRight:'50%',
+                    backgroundColor: '#00a680',
+                    borderRadius: 10,
+                    height:75, width:200
+                }}
                     title="Regístrate"
                     onPress={handleSignUp}
                 />
-                <Text  style={{color:'#00a680', fontSize:15, marginTop:10, marginLeft:90, marginBottom:100}} onPress={()=>{navigation.navigate('LoginScreen')}}>¿Tienes cuenta? Inicia sesión</Text>
+                <Text  style={{ fontSize:15, marginTop:10, marginLeft:90, marginBottom:100}} onPress={()=>{navigation.navigate('LoginScreen')}}>¿Tienes cuenta? Inicia sesión</Text>
             </View>
         </View>
     );
@@ -83,5 +84,6 @@ const styles = StyleSheet.create({
         marginTop: 150,
         marginBottom: 30,
         textAlign: "center",
+        fontFamily:"Noteworthy-Bold"
     },
 });

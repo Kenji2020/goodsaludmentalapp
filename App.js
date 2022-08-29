@@ -11,6 +11,8 @@ import CrearBlogScreen from "./Screens/CrearBlogScreen";
 import DescripcionPsicologos from "./Screens/DescripcionPsicologos";
 import Articulos from "./Screens/Articulos";
 import EscribirArticulo from "./Screens/EscribirArticulo";
+import ArticuloScreen from "./Screens/ArticuloScreen";
+
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -27,6 +29,8 @@ export default function App() {
                 <Stack.Screen options={{headerShown: false}} name="DescripcionPsicologos" component={DescripcionPsicologos}/>
                 <Stack.Screen options={{headerShown: false}} name="Articulos" component={Articulos}/>
                 <Stack.Screen options={{headerShown: false}} name="EscribirArticulo" component={EscribirArticulo}/>
+                <Stack.Screen options={{headerShown: false}} name="ArticuloScreen" component={ArticuloScreen}/>
+
 
             </Stack.Navigator>
         </NavigationContainer>

@@ -43,7 +43,7 @@ const Articulos = ({ info }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{backgroundColor: '#e1e1e1', marginTop:0, marginBottom:0}}>
                         <Card containerStyle={{marginLeft:0, marginRight:0, marginTop:0, marginBottom:5, height:"100%",width:"100%", backgroundColor:'#f6f6f6'}}>
-                            <Card.Title onPress={()=>{navigation.navigate('DescripcionPsicologos',{userId: item.id})}}>{item.name}</Card.Title>
+                            <Card.Title onPress={()=>{navigation.navigate('ArticuloScreen',{userId: item.id})}}>{item.name}</Card.Title>
                             <Card.Divider />
                             <View
                                 style={{
