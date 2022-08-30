@@ -68,8 +68,8 @@ export default function HomeScreen({info}) {
                      style={{marginTop:0, marginBottom:40}}
            />
             <View style={{marginTop:-40, flexDirection: 'row', justifyContent: 'space-evenly', flex:40}} >
-                <Button  buttonStyle={{backgroundColor: '#00ADC7'}} title='Cuenta tu historia' onPress={()=>{navigation.navigate('CrearBlogScreen')}} />
-                <Button title="Área psicología" onPress={()=>{navigation.navigate('AreaPsicologia')}} buttonStyle={{backgroundColor: '#00ADC7',}}/>
+                <Button  buttonStyle={{backgroundColor: '#00a680'}} title='Cuenta tu historia' onPress={()=>{navigation.navigate('CrearBlogScreen')}} />
+                <Button title="Área psicología" onPress={()=>{navigation.navigate('AreaPsicologia')}} buttonStyle={{backgroundColor: '#00a680',}}/>
             </View>
         </KeyboardAvoidingView>
     );

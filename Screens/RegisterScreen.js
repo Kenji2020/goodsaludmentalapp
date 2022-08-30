@@ -32,7 +32,7 @@ export default function RegisterScreen() {
 
     return (
         <View>
-            <Text style={styles.logoText}>Todo inicia y termina por ti</Text>
+            <Text style={styles.logoText}>Confiamos en ti</Text>
             <Input
                 disabledInputStyle={{ background: "#ddd" }}
                 value={email}

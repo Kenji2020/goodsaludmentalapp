@@ -23,7 +23,7 @@ import {useNavigation} from "@react-navigation/native";
 
 const image = {uri: "https://reactjs.org/logo-og.png"};
 
-const BlogPage = (props) => {
+const ArticuloScreen = (props) => {
     const navigation = useNavigation()
     const initialState = {
         autor: "",
@@ -36,16 +36,45 @@ const BlogPage = (props) => {
         commentValue: "",
 
     };
+    console.log(props.route.params.userId)
     const [Comments, SetComments] = useState([]);
     const [commentValue, setCommentValue] = useState('');
     const [showComment, setShowComment] = useState(false);
     const InputRef = useRef();
+
+    const AddToComments = async () => {
+        if(commentValue) {
+            let temp = {
+                commentValue: commentValue,
+                id:GenerateUniqueID(),
+                autor : auth.currentUser.email
+            };
+            // This clears the TextInput Field
+            const ref = db.collection('Articulos').doc(props.route.params.userId);
+            await ref.update({
+                comments: arrayUnion(temp)
+            });
+
+            SetComments([...Comments, temp]); // Adds comment to Array
+            setCommentValue(''); // Clears the TextInput Field
+            InputRef.current.clear();
+        }else{
+            alert("Debes escribir un comentario");
+        }
+
+
+    }
+
+    const GenerateUniqueID = () => {
+        return Math.floor(Math.random() * Date.now()).toString();
+    };
+
     // Function to add comments to array
     const [blogsList, setBlogsList] = useState([]);
     const [user, setUser] = useState(initialState);
     const [loading, setLoading] = useState(true);
     const getUserById = async (id) => {
-        const dbRef = db.collection('Articulo').doc(id)
+        const dbRef = db.collection('Articulos').doc(id)
         const doc = await dbRef.get()
         const user = doc.data()
         setUser({...user, id: doc.id});
@@ -61,7 +90,7 @@ const BlogPage = (props) => {
         if (user.autor === auth.currentUser.email || auth.currentUser.email === "victor.ignacio.salgado2002@gmail.com" || auth.currentUser.email === "joakomask@gmail.com") {
             setLoading(true)
             const dbRef = db
-                .collection("Articulo")
+                .collection("Articulos")
                 .doc(props.route.params.userId);
             await dbRef.delete();
             setLoading(false)
@@ -73,19 +102,18 @@ const BlogPage = (props) => {
     };
 
     const {width, height} = Dimensions.get('window')
-    const {data} = props.route.params;
+    //const {data} = props.route.params;
     //access to data inside array of objects
-
     useEffect(() => {
         db.collection('Articulos').onSnapshot(querySnapshot => {
             const lista = []
             querySnapshot.docs.forEach(doc => {
-            
-                    const {name, description, tags, nickname} = doc.data()
+                if(commentValue !== ""){
+                    const {name, description, tags, nickname, comments, commentValue} = doc.data()
                     lista.push({
-                        id: doc.id, name, description, tags, nickname
+                        id: doc.id, name, description, tags, nickname, comments, commentValue
                     })
-                
+                }
 
             })
             setBlogsList([...lista])
@@ -93,6 +121,16 @@ const BlogPage = (props) => {
         })
 
     }, [])
+    useEffect(() => {
+        getUserById(props.route.params.userId)
+        getCommentsFromDatabase()
+    }, []);
+    const getCommentsFromDatabase = async () => {
+        const dbRef = db.collection('Articulos').doc(props.route.params.userId);
+        const doc = await dbRef.get()
+        const comments = doc.data().comments
+        SetComments(comments)
+    }
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <View>
@@ -103,8 +141,7 @@ const BlogPage = (props) => {
                             borderBottomLeftRadius: 10,
                             borderBottomRightRadius: 10
                         }} resizeMode="cover"/>
-                       
-                        {auth.currentUser.email === user.autor || auth.currentUser.email === "victor.ignacio.salgado2002@gmail.com" || auth.currentUser.email === "joakomask@gmail.com"  || auth.currentUser.email === "benjamin.morales3@mail.udp.cl" ?
+                        {auth.currentUser.email === user.autor || auth.currentUser.email === "victor.ignacio.salgado2002@gmail.com" || auth.currentUser.email === "joakomask@gmail.com"  ?
                         <>
                             <Button
                                 title="Borrar"
@@ -120,6 +157,7 @@ const BlogPage = (props) => {
                         }
                     </SharedElement>
                     <View style={{flexDirection: 'row', alignItems: 'center', position: 'absolute', bottom: 14, left: 10}}>
+
                         <View style={{
                             flex: 1,
                             flexDirection: 'row',
@@ -140,7 +178,7 @@ const BlogPage = (props) => {
                         <Text style={{color: 'black', fontSize: 22, fontWeight: 'bold', lineHeight: 32}}>{user.name}</Text>
                     </SharedElement>
                     <Text style={{fontSize: 14, lineHeight: 28, textAlign: 'justify', opacity: 0.5}}>
-                        {user.description} 
+                        {user.description}
                     </Text>
                     <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
                         <View style={{
@@ -156,8 +194,7 @@ const BlogPage = (props) => {
                                 </SharedElement>
                                 <SharedElement>
                                     <Text style={{color: 'black', fontSize: 12,}}>{user.nickname}</Text>
-                                </SharedElement>
-                               
+                                </SharedElement>                               
                             </View>
                         </View>
                     </View>
@@ -168,7 +205,7 @@ const BlogPage = (props) => {
 
 };
 
-export default BlogPage;
+export default ArticuloScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
